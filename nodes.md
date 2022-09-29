@@ -70,7 +70,7 @@
   - tomcat
   - pause -> this container is hidden because it only reserve the ip and keep it till the pod is died.
 
-
+### Objects in Kubernetes
 #### Common objects in kubernetes
 - ingress
   - We use this if we want to expose any service to external network or outside of our network.
@@ -79,6 +79,9 @@
   - for example nginx, apache etc
 - deployment
   - Deployment can be part of multiple pod to make them highly available
+  - pods are normally part of any deployment (object in k8s).
+  - pods aren't directly part of deployment but a replica set.
+  - Deployment manages replica set and replica sets manages pods.
 - pods
   - Every pod can contain one to many containers
 - containers
@@ -87,3 +90,68 @@
   - This could be a vm/host or any physical machine
 
 #### Storage objects in kubernetes
+- PVC -> persistent volume claim
+- PVC is attached with pod. In this case, it could be mysql db with persistent volume claim.
+- PVC (persistent volume claims) takes some slice of space from PV (persistent volume)
+- ...this pv takes storage from any physical or remote storage for example, NFS, Storage account, etc
+
+#### Configmaps and Secrets
+- Configmaps
+  - For example: db name, url, ip address
+  - For exmaple: apache web server needs virtual box configuration.
+  - ...So, we use this configmaps object and ask kubernetes to pass these configurations to containers.
+  - It could be a complete file, username, db url etc
+  - Once the configuration has been added in configmap, we define in pod that this configuration will come from configmaps.
+- Secrets
+  - These are secrets that we don't want to expose publically and store in any public repository etc
+  - These comes from secrets' object in kubernetes.
+
+#### Different controllers in Kubernetes
+- Deployments
+  - Rolling updates
+  - Canary deployments
+  - Rollbacks
+    - pods are normally part of any deployment (object in k8s).
+    - pods aren't directly part of deployment but a replica set.
+    - Deployment manages replica set and replica sets manages pods.
+- StatefulSets
+  - Rolling updates
+- CronJobs
+  - Cron job
+- Daemon Sets
+
+### Namespaces in Kubernetes
+- Kubernets support multiple virtual clusters backed by same physical k8s cluster.
+- In simple words, k8s makes our life easier by creating multiple virtual clusters (namespaces) to support our different environment i.e. development, test and production.
+- These virtual clusters are called namespaces.
+- It's a very big advantage to have sandbox environment in same cluster.
+
+### How to interect with Kubernetes
+- cli with kubectl
+- web ui
+- fedora project like cockpit-project.org
+
+
+### Some commands
+kubectl run nginx --image nginx:alpine --port 80
+kubectl get pods
+kubectl get pods -w
+kubectl get deployments
+kubectl get pods -o wide
+kubectl delete pod POD_NAME
+kubectl scale deployment nginx --replicas=4
+kubectl get pods -o wide -w
+kubectl scale deployment nginx --replicas=2
+kubectl get cs
+kubectl expose deployment nginx --type=LoadBalancer
+kubectl get services
+kubectl get svc
+kubectl logs POD_NAME
+gcloud container clusters get-credentials my-first-cluster-1 --zone asia-south1-a --project ans-dev
+
+gcloud init
+
+- These are also useful commands:
+gcloud config list
+gcloud auth login 
+gcloud config set project PROJECT_ID
