@@ -139,7 +139,8 @@
     - minikube   Ready    control-plane   15h   v1.25.0
 - kubectl get nodes -o wide
   - To see the nodes with details for example, external ip etc
-- kubectl run nginx --image nginx:alpine --port 80
+- kubectl run nginx --image nginx:alpine --port 80 -----> 
+  - This command will create a pod as well as the deployment in older version but in newer version it only creates a pod and not the deployment.
   - This will create a deployment.
   - In this deployment in will create a replica set.
   - In this replica set it will create a pod.
@@ -174,7 +175,8 @@
 - kubectl config get-contexts
   - CURRENT   NAME       CLUSTER    AUTHINFO   NAMESPACE
   - *         minikube   minikube   minikube   default
-
+- kubectl cluster-info
+- kubectl describe services nginx
 
 
 - These commands works for Google Cloud platform to authenticate/authorize with gcp:
@@ -191,4 +193,21 @@ gcloud config set project PROJECT_ID
 ### Where it stores configuration for kubernetes
 - ~/.kube/config
 
+### Important
+- kubectl run nginx --image=nginx:alpine --port=80
+  - This command will create a pod as well as the deployment in older version but in newer version it only creates a pod and not the deployment. So, to create a deployment along with the pod, we need to execute below command:
+- kubectl create deployment nginx --image=nginx:alpine --port=80
+- minikube service nginx --url
+  - This will expose the service of type "NodePort".
+  - It must be run in a separate terminal window to keep the tunnel open.
+  - Above is very important when:
+    - minikube is running under wsl
 
+
+## Expose service in Kubernetes
+- NodePort
+  - minikube service <service_name> --url
+  - run this command in separate terminal otherwise the session will be timedout hence no exposure of service.
+- LoadBalancer
+  - minikube tunnel
+  - This will assign an IP to pod and expose the service.
