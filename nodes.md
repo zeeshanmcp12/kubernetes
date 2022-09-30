@@ -128,12 +128,20 @@
 - In simple words, k8s makes our life easier by creating multiple virtual clusters (namespaces) to support our different environment i.e. development, test and production.
 - These virtual clusters are called namespaces.
 - It's a very big advantage to have sandbox environment in same cluster.
+- namespaces are an virtual isolated environment and name of one namespace is 'default' which we work in it.
+  - kubectl get namespaces
+- If we want to see what's going on in any namespace then we can execute below command:
+  - kubectl -n kube-system get pods
 
 ### How to interect with Kubernetes
 - cli with kubectl
 - web ui
 - fedora project like cockpit-project.org
 
+
+### How to get output of pod in yaml format
+- kubectl get pod nginx-55f494c486-jsqf9 -o yaml > ./app-nginx.yaml
+  - This command will send the output of above command in yaml format that we can use later on to create a template.
 
 ### Some commands
 - kubectl get nodes
@@ -193,6 +201,9 @@
 - kubectl cluster-info
   - Output:
   - Kubernetes control plane is running at https://<ip>:<port>
+- kubectl describe node <node_name>
+  - This will show all information about node
+- kubectl get all
 
 
 - These commands works for Google Cloud platform to authenticate/authorize with gcp:
@@ -238,3 +249,5 @@ gcloud config set project PROJECT_ID
 
 ### How to verify the access to k8s cluster
 - Execute this command and see the output, if no errors then we can interect with cluster whether it is managed or local cluster (minikube, kube-adm etc)
+  - kubectl get cs (component status)
+  
