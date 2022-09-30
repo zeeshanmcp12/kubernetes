@@ -6,6 +6,9 @@
 ### Current version of k8s at the time of writing these notes (29th October 2022)
 - version 1.25
 
+#### Current version in Azure for kubernetes cluster
+- version 1.23.8 (1st October 2022)
+
 ### History of k8s
 - [History](./images/history-of-k8s.png) of kubernetes
 - Why we need any [orchestration tool](./images/why-we-need-orchestration-tool.png)?
