@@ -1,0 +1,23 @@
+# a comment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apache
+  labels:
+    app: apache          # arbitrary label on deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:        # labels the replica selector should match
+      app: apache
+  template:
+    metadata:
+      labels:
+        app: apache      # label for replica selector to match
+        version: latest  # arbitrary label we can match on elsewhere
+    spec:
+      containers:
+      - name: httpd
+        image: httpd:latest
+        ports:
+        - containerPort: 3080

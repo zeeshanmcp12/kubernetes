@@ -13,6 +13,10 @@
 - [History](./images/history-of-k8s.png) of kubernetes
 - Why we need any [orchestration tool](./images/why-we-need-orchestration-tool.png)?
 
+### Best thing in Kubernetes
+- It provides resilience
+  - If a pod dies, it will be recreated till kubernetes has resources and until we change our desire
+
 ### Play with K8s
 - minikube -> if we want to play around kubernetes on our local computer. mikikube basically works as a small vm. It works as cluster. All the processes runs similar to cluster.
 - kops -> old tool on AWS
@@ -29,7 +33,7 @@
 - api server
   - this api server talks with scheduler and controller manager
 - scheduler
-- contoller manager
+- controller manager
 - worker nodes
   - kube-proxy
     - to manage networking inside cluster
@@ -204,6 +208,8 @@
 - kubectl describe node <node_name>
   - This will show all information about node
 - kubectl get all
+- kubectl get replicasets
+  - This will show the replica sets
 
 
 - These commands works for Google Cloud platform to authenticate/authorize with gcp:
@@ -236,6 +242,10 @@ gcloud config set project PROJECT_ID
 ### Create deployments in Kubernetes
 - kubectl create deployment nginx --image=nginx:alpine
   - kubectl expose deployment nginx --type=LoadBalancer --port=80
+- We can create deployments using yaml (template) file
+  - kubectl apply -f <template_file.yaml>
+    - -f -> file
+  - kubectl delete -f <template_file.yaml>
 
 ### Important
 - kubectl run nginx --image=nginx:alpine --port=80
@@ -246,8 +256,9 @@ gcloud config set project PROJECT_ID
   - It must be run in a separate terminal window to keep the tunnel open.
   - Above is very important when:
     - minikube is running under wsl
+- kubectl api-resources | grep deployment
+  - to check which APIs support current kubernetes object
 
 ### How to verify the access to k8s cluster
 - Execute this command and see the output, if no errors then we can interect with cluster whether it is managed or local cluster (minikube, kube-adm etc)
   - kubectl get cs (component status)
-  
