@@ -197,6 +197,19 @@ gcloud config set project PROJECT_ID
 ### Where it stores configuration for kubernetes
 - ~/.kube/config
 
+
+### Expose service in Kubernetes
+- NodePort
+  - minikube service <service_name> --url
+  - run this command in separate terminal otherwise the session will be timedout hence no exposure of service.
+- LoadBalancer
+  - minikube tunnel
+  - This will assign an IP to pod and expose the service.
+
+### Create deployments in Kubernetes
+- kubectl create deployment nginx --image=nginx:alpine
+  - kubectl expose deployment nginx --type=LoadBalancer --port=80
+
 ### Important
 - kubectl run nginx --image=nginx:alpine --port=80
   - This command will create a pod as well as the deployment in older version but in newer version it only creates a pod and not the deployment. So, to create a deployment along with the pod, we need to execute below command:
@@ -206,12 +219,3 @@ gcloud config set project PROJECT_ID
   - It must be run in a separate terminal window to keep the tunnel open.
   - Above is very important when:
     - minikube is running under wsl
-
-
-## Expose service in Kubernetes
-- NodePort
-  - minikube service <service_name> --url
-  - run this command in separate terminal otherwise the session will be timedout hence no exposure of service.
-- LoadBalancer
-  - minikube tunnel
-  - This will assign an IP to pod and expose the service.
