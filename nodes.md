@@ -133,25 +133,40 @@
 
 
 ### Some commands
-kubectl run nginx --image nginx:alpine --port 80
-kubectl get pods
-kubectl get pods -w
-kubectl get deployments
-kubectl get pods -o wide
-kubectl delete pod POD_NAME
-kubectl scale deployment nginx --replicas=4
-kubectl get pods -o wide -w
-kubectl scale deployment nginx --replicas=2
-kubectl get cs
-kubectl expose deployment nginx --type=LoadBalancer
-kubectl get services
-kubectl get svc
-kubectl logs POD_NAME
+- kubectl get nodes -> to see the nodes
+- kubectl get nodes -o wide
+  - To see the nodes with details for example, external ip etc
+- kubectl run nginx --image nginx:alpine --port 80
+  - This will create a deployment.
+  - In this deployment in will create a replica set.
+  - In this replica set it will create a pod.
+- kubectl get deployments
+  - To see how many deployments we have currenly running
+- kubectl get pods
+  - To see how many pods are running
+- kubectl expose deployment nginx --type=LoadBalancer
+  - We will create a service to expose the deployment
+- kubectl get services
+  - To see which services are running
+- kubectl logs <pod_name>
+  - To see the logs for running pod
+- kubectl delete pod POD_NAME
+- kubectl scale deployment nginx --replicas=4
+- kubectl get pods -o wide -w
+- kubectl scale deployment nginx --replicas=2
+- kubectl get cs
+- kubectl expose deployment nginx --type=LoadBalancer
+- kubectl get services
+- kubectl get svc
+- kubectl logs POD_NAME
 gcloud container clusters get-credentials my-first-cluster-1 --zone asia-south1-a --project ans-dev
 
 gcloud init
 
-- These are also useful commands:
+- These commands works for Google Cloud platform to authenticate/authorize with gcp:
 gcloud config list
 gcloud auth login 
 gcloud config set project PROJECT_ID
+
+### Some more notes
+- CSPs does not give access on master/control nodes and keeps it with them and highly available. We only have access on worker node and have flexibility to play around worker nodes.
