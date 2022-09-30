@@ -133,7 +133,10 @@
 
 
 ### Some commands
-- kubectl get nodes -> to see the nodes
+- kubectl get nodes
+  - To see the running nodes, for example master or worker etc. for example:
+    - NAME       STATUS   ROLES           AGE   VERSION
+    - minikube   Ready    control-plane   15h   v1.25.0
 - kubectl get nodes -o wide
   - To see the nodes with details for example, external ip etc
 - kubectl run nginx --image nginx:alpine --port 80
@@ -151,22 +154,41 @@
 - kubectl logs <pod_name>
   - To see the logs for running pod
 - kubectl delete pod POD_NAME
+- kubectl get cs
+  - This will show the cluster state, for example:
+    - Warning: v1 ComponentStatus is deprecated in v1.19+
+    - NAME                 STATUS    MESSAGE                         ERROR
+    - controller-manager   Healthy   ok
+    - scheduler            Healthy   ok
+    - etcd-0               Healthy   {"health":"true","reason":""}
+- kubectl config get-clusters
+  - to see if any cluster is running
 - kubectl scale deployment nginx --replicas=4
 - kubectl get pods -o wide -w
 - kubectl scale deployment nginx --replicas=2
-- kubectl get cs
-- kubectl expose deployment nginx --type=LoadBalancer
-- kubectl get services
 - kubectl get svc
 - kubectl logs POD_NAME
-gcloud container clusters get-credentials my-first-cluster-1 --zone asia-south1-a --project ans-dev
+- kubectl config get-clusters
+  - NAME
+  - minikube
+- kubectl config get-contexts
+  - CURRENT   NAME       CLUSTER    AUTHINFO   NAMESPACE
+  - *         minikube   minikube   minikube   default
 
-gcloud init
+
 
 - These commands works for Google Cloud platform to authenticate/authorize with gcp:
+gcloud container clusters get-credentials my-first-cluster-1 --zone asia-south1-a --project ans-dev
+gcloud init
 gcloud config list
 gcloud auth login 
 gcloud config set project PROJECT_ID
 
 ### Some more notes
 - CSPs does not give access on master/control nodes and keeps it with them and highly available. We only have access on worker node and have flexibility to play around worker nodes.
+
+
+### Where it stores configuration for kubernetes
+- ~/.kube/config
+
+
