@@ -186,6 +186,14 @@
   - kubectl describe pod nginx
 - kubectl get pods -o wide --all-namespaces=true
   - This will show pod details like namespace, pod name, it's ip and which node this pod is running in etc.
+- kubectl config view
+  - This will show the cluster configurations that stored in ~/.kube/config file
+- kubectl config view --minify=true
+  - This will show the active cluster configurations
+- kubectl cluster-info
+  - Output:
+  - Kubernetes control plane is running at https://<ip>:<port>
+
 
 - These commands works for Google Cloud platform to authenticate/authorize with gcp:
 gcloud container clusters get-credentials my-first-cluster-1 --zone asia-south1-a --project ans-dev
@@ -193,6 +201,10 @@ gcloud init
 gcloud config list
 gcloud auth login 
 gcloud config set project PROJECT_ID
+
+### minikube commands
+- minikube node add
+  - To add a node
 
 ### Some more notes
 - CSPs does not give access on master/control nodes and keeps it with them and highly available. We only have access on worker node and have flexibility to play around worker nodes.
@@ -223,3 +235,6 @@ gcloud config set project PROJECT_ID
   - It must be run in a separate terminal window to keep the tunnel open.
   - Above is very important when:
     - minikube is running under wsl
+
+### How to verify the access to k8s cluster
+- Execute this command and see the output, if no errors then we can interect with cluster whether it is managed or local cluster (minikube, kube-adm etc)
