@@ -184,7 +184,8 @@
   - kubectl describe services nginx
   - kubectl describe deployment nginx
   - kubectl describe pod nginx
-
+- kubectl get pods -o wide --all-namespaces=true
+  - This will show pod details like namespace, pod name, it's ip and which node this pod is running in etc.
 
 - These commands works for Google Cloud platform to authenticate/authorize with gcp:
 gcloud container clusters get-credentials my-first-cluster-1 --zone asia-south1-a --project ans-dev
