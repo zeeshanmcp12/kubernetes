@@ -167,6 +167,7 @@
 - kubectl scale deployment nginx --replicas=4
 - kubectl get pods -o wide -w
 - kubectl scale deployment nginx --replicas=2
+  - This will change the desired state to running or in simple words, adds some replica sets.
 - kubectl get svc
 - kubectl logs POD_NAME
 - kubectl config get-clusters
@@ -176,7 +177,10 @@
   - CURRENT   NAME       CLUSTER    AUTHINFO   NAMESPACE
   - *         minikube   minikube   minikube   default
 - kubectl cluster-info
-- kubectl describe services nginx
+- kubectl describe <command>
+  - kubectl describe services nginx
+  - kubectl describe deployment nginx
+  - kubectl describe pod nginx
 
 
 - These commands works for Google Cloud platform to authenticate/authorize with gcp:
