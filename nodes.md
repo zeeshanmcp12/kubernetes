@@ -218,6 +218,8 @@
   - We can see logs only for pod and not for deployment or service.
 - kubectl describe svc nginx
   - This command will display service information in detail, for example ip, port, node ip, endpoint etc
+- kubectl exec --it <pod_name> -c <container_name> bash
+  - If we have multi-container pod running we can use '-c' switch to log into any container we provided in above command.
 
 
 - These commands works for Google Cloud platform to authenticate/authorize with gcp:
@@ -278,3 +280,10 @@ gcloud config set project PROJECT_ID
 ### Troubleshooting service from inside the cluster
 - dig apache.default.svc.cluster.local
   - We can execute this command from network-multitool
+
+- matallb -> local loadbalancer 
+
+
+### Create kubernetes yaml manifests
+- Create Service
+  - kubectl expose deployment nginx --type=NodePort --dry-run=client -o yaml > support-files/nginx-service.yaml
