@@ -210,6 +210,9 @@
 - kubectl get all
 - kubectl get replicasets
   - This will show the replica sets
+- kubectl exec --it <pod_name> bash
+  - To start/execute the pod and log into that. Similar to docker exec
+  - kubectl exec --it multitool-6dd498589f-t7cvs bash
 
 
 - These commands works for Google Cloud platform to authenticate/authorize with gcp:

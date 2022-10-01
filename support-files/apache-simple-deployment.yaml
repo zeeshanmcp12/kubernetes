@@ -6,7 +6,7 @@ metadata:
   labels:
     app: apache          # arbitrary label on deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:        # labels the replica selector should match
       app: apache
@@ -20,4 +20,4 @@ spec:
       - name: httpd
         image: httpd:latest
         ports:
-        - containerPort: 3080
+        - containerPort: 8080
