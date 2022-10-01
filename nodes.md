@@ -213,6 +213,11 @@
 - kubectl exec --it <pod_name> bash
   - To start/execute the pod and log into that. Similar to docker exec
   - kubectl exec --it multitool-6dd498589f-t7cvs bash
+- kubectl logs -f <pod_name>
+  - -f -> in follow up mode -> or trail mode
+  - We can see logs only for pod and not for deployment or service.
+- kubectl describe svc nginx
+  - This command will display service information in detail, for example ip, port, node ip, endpoint etc
 
 
 - These commands works for Google Cloud platform to authenticate/authorize with gcp:
@@ -235,12 +240,16 @@ gcloud config set project PROJECT_ID
 
 
 ### Expose service in Kubernetes
+- There are three types of service in kubernetes
 - NodePort
   - minikube service <service_name> --url
   - run this command in separate terminal otherwise the session will be timedout hence no exposure of service.
 - LoadBalancer
   - minikube tunnel
   - This will assign an IP to pod and expose the service.
+- ClusterIP
+  - with this service, we can access cluster using it's name for example curl nginx.
+  - 
 
 ### Create deployments in Kubernetes
 - kubectl create deployment nginx --image=nginx:alpine
@@ -265,3 +274,7 @@ gcloud config set project PROJECT_ID
 ### How to verify the access to k8s cluster
 - Execute this command and see the output, if no errors then we can interect with cluster whether it is managed or local cluster (minikube, kube-adm etc)
   - kubectl get cs (component status)
+
+### Troubleshooting service from inside the cluster
+- dig apache.default.svc.cluster.local
+  - We can execute this command from network-multitool
