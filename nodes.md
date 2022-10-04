@@ -287,3 +287,22 @@ gcloud config set project PROJECT_ID
 ### Create kubernetes yaml manifests
 - Create Service
   - kubectl expose deployment nginx --type=NodePort --dry-run=client -o yaml > support-files/nginx-service.yaml
+
+### Rolling updates in Kubernetes
+- curl -sI <url>:<port>(if any)
+  - to include the headers in request, for example, HTTP status, Server, Date, Content-Type, Content-Length, Connection etc
+  - add above command in loop to verify the rollout status
+    - while true ; do curl -sI localhost:9080 | grep Server; sleep 1; done
+- kubectl set image deployment nginx nginx=nginx:1.9.5 --record
+  - this will rollout an update (i.e. change nginx version from 1.9.1 to 1.9.5)
+- kubectl rollout status deployment nginx
+  - This will show the status of rolling out an update for example:
+    - Waiting for deployment "nginx" rollout to finish: 2 out of 4 new replicas have been updated...
+- kubectl rollout history deployment nginx
+  - We can rollout history using above command for example:
+    - REVISION  CHANGE-CAUSE
+    - 1         <none>
+    - 2         kubectl set image deployment nginx nginx=nginx:1.9.5 --record=true
+    - 3         kubectl set image deployment nginx nginx=nginx:1.12.2 --record=true
+- kubectl rollout status deployment nginx
+  - We can undo image changes (or image rollout) incase of any error for example, image not found etc
