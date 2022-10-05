@@ -309,7 +309,7 @@ gcloud config set project PROJECT_ID
 
 
 ### Configmaps and Secrets
-####  Secrets
+#### Secrets
 - kubectl create secret tls nginx-certs --cert=./certs/tls.crt --key=./certs/tls.key
   - tls -> is a type of secret
   - nginx-certs -> name of secret
@@ -321,3 +321,18 @@ gcloud config set project PROJECT_ID
   - nginx-certs   kubernetes.io/tls   2      3m19s
 - kubectl describe secret
   - shows more information about secret
+  
+#### Configmaps
+- kubectl create configmap nginx-config --from-file=support-files/nginx-connectors.conf
+  - Create configmap
+  - nginx-config -> name for the cm
+  - --from-file -> switch to accept the file
+- kubectl get configmaps ----> kubectl get cm
+- kubectl get secrets,cm
+
+
+#### curl useful commands
+- curl -k https://localhost
+  - ignore ssl warning
+- curl -sI https://127.0.0.1
+  - add headers in response
