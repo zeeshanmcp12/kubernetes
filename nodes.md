@@ -306,3 +306,18 @@ gcloud config set project PROJECT_ID
     - 3         kubectl set image deployment nginx nginx=nginx:1.12.2 --record=true
 - kubectl rollout status deployment nginx
   - We can undo image changes (or image rollout) incase of any error for example, image not found etc
+
+
+### Configmaps and Secrets
+####  Secrets
+- kubectl create secret tls nginx-certs --cert=./certs/tls.crt --key=./certs/tls.key
+  - tls -> is a type of secret
+  - nginx-certs -> name of secret
+  - --cert -> requires .crt file
+  - --key -> requires .key file
+- kubectl get secrets
+  - shows the secret we create
+  - NAME          TYPE                DATA   AGE
+  - nginx-certs   kubernetes.io/tls   2      3m19s
+- kubectl describe secret
+  - shows more information about secret
