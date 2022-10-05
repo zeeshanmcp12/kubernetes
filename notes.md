@@ -328,6 +328,7 @@ gcloud config set project PROJECT_ID
   - nginx-config -> name for the cm
   - --from-file -> switch to accept the file
 - kubectl get configmaps ----> kubectl get cm
+- kubectl describe configmap nginx-config
 - kubectl get secrets,cm
 
 
