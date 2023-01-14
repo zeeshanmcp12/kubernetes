@@ -33,7 +33,10 @@
 - api server
   - this api server talks with scheduler and controller manager
 - scheduler
+  - It checks which container (in worker node) needs how much resources
+  - It makes sure 
 - controller manager
+  - It checks for the container if the container is not running (or down)
 - worker nodes
   - kube-proxy
     - to manage networking inside cluster
@@ -153,12 +156,13 @@
     - NAME       STATUS   ROLES           AGE   VERSION
     - minikube   Ready    control-plane   15h   v1.25.0
 - kubectl get nodes -o wide
-  - To see the nodes with details for example, external ip etc
+  - To see the nodes with details for example, external ip, OS which this nodes is running on etc
 - kubectl run nginx --image nginx:alpine --port 80 -----> 
   - This command will create a pod as well as the deployment in older version but in newer version it only creates a pod and not the deployment.
   - This will create a deployment.
   - In this deployment in will create a replica set.
   - In this replica set it will create a pod.
+- kubectl run hello-minikube
 - kubectl get deployments
   - To see how many deployments we have currenly running
 - kubectl get pods
