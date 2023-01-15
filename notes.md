@@ -159,6 +159,7 @@
   - To see the nodes with details for example, external ip, OS which this nodes is running on etc
 - kubectl run nginx --image nginx:alpine --port 80 -----> 
   - This command will create a pod as well as the deployment in older version but in newer version it only creates a pod and not the deployment.
+- kubectl create deployment
   - This will create a deployment.
   - In this deployment in will create a replica set.
   - In this replica set it will create a pod.
