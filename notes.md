@@ -1,30 +1,37 @@
 # Notes about Kubernetes
 
-### What is Kubernetes
+## What is Kubernetes
+
 - Kubernets is a framework for building distributed platforms. It means that it has a capability to build distributed platform.
 
-### Current version of k8s at the time of writing these notes (29th October 2022)
+## Current version of k8s at the time of writing these notes (29th October 2022)
+
 - version 1.25
 
-#### Current version in Azure for kubernetes cluster
+## Current version in Azure for kubernetes cluster
+
 - version 1.23.8 (1st October 2022)
 
-### History of k8s
+## History of k8s
+
 - [History](./images/history-of-k8s.png) of kubernetes
 - Why we need any [orchestration tool](./images/why-we-need-orchestration-tool.png)?
 
-### Best thing in Kubernetes
+## Best thing in Kubernetes
+
 - It provides resilience
   - If a pod dies, it will be recreated till kubernetes has resources and until we change our desire
 
-### Play with K8s
+## Play with K8s
+
 - minikube -> if we want to play around kubernetes on our local computer. mikikube basically works as a small vm. It works as cluster. All the processes runs similar to cluster.
 - kops -> old tool on AWS
 - aks (Azure Kubernetes Services)
 - gks (Google Kubernetes Services)
 - ...etc
 
-### Main components of k8s
+## Main components of k8s
+
 - etcd cluster
   - This stores cluster information
   - It should be setup as highly available because it contains all information about cluster so if it corrupted then whole cluster will corrupt.
@@ -34,7 +41,6 @@
   - this api server talks with scheduler and controller manager
 - scheduler
   - It checks which container (in worker node) needs how much resources
-  - It makes sure 
 - controller manager
   - It checks for the container if the container is not running (or down)
 - worker nodes
@@ -45,43 +51,50 @@
   - docker
     - to manager containers
 
-#### Master node
-- following components run in master node or contol node.
+## Master node
+
+- following components run in master node or control node.
   - api server
   - scheduler
   - controller manager
 
-#### Worker node
+## Worker node
+
 - following components run in worker node
   - kube-proxy
   - kubelet
   - docker
 
-#### Tool to work with k8s
+## Tool to work with k8s
+
 - kubectl
   - command line utility to work with kubernetes
 
+## Pod
 
-#### Pod
 - is a collection of container which lives together and die together
 - pod is a work unit in kubernetes similar to container which is a work unit in docker
 - if one container inside a pod is die then the whole pod will die and recreated.
 - if a pod is died then this pod will never be live/up again but recreated with new id etc.
 
-#### How pod works
+## How pod works
+
 - tomcat(8080)
 - Following are helper containers
   - initContainer
   - pause
   - proxy (80/443)
 
-#### How many containers usually pod contains
+## How many containers usually pod contains
+
 - Every pod has atleast 2 containers. One is hidden than main image. For example:
   - tomcat
   - pause -> this container is hidden because it only reserve the ip and keep it till the pod is died.
 
 ### Objects in Kubernetes
+
 #### Common objects in kubernetes
+
 - ingress
   - We use this if we want to expose any service to external network or outside of our network.
   - Here comes Application gateway, Nginx (as reverse proxy) etc
@@ -100,12 +113,14 @@
   - This could be a vm/host or any physical machine
 
 #### Storage objects in kubernetes
+
 - PVC -> persistent volume claim
 - PVC is attached with pod. In this case, it could be mysql db with persistent volume claim.
 - PVC (persistent volume claims) takes some slice of space from PV (persistent volume)
 - ...this pv takes storage from any physical or remote storage for example, NFS, Storage account, etc
 
 #### Configmaps and Secrets
+
 - Configmaps
   - For example: db name, url, ip address
   - For exmaple: apache web server needs virtual box configuration.
@@ -116,7 +131,8 @@
   - These are secrets that we don't want to expose publically and store in any public repository etc
   - These comes from secrets' object in kubernetes.
 
-#### Different controllers in Kubernetes
+### Different controllers in Kubernetes
+
 - Deployments
   - Rolling updates
   - Canary deployments
@@ -130,7 +146,8 @@
   - Cron job
 - Daemon Sets
 
-### Namespaces in Kubernetes
+## Namespaces in Kubernetes
+
 - Kubernets support multiple virtual clusters backed by same physical k8s cluster.
 - In simple words, k8s makes our life easier by creating multiple virtual clusters (namespaces) to support our different environment i.e. development, test and production.
 - These virtual clusters are called namespaces.
@@ -140,17 +157,19 @@
 - If we want to see what's going on in any namespace then we can execute below command:
   - kubectl -n kube-system get pods
 
-### How to interect with Kubernetes
+## How to interect with Kubernetes
+
 - cli with kubectl
 - web ui
 - fedora project like cockpit-project.org
 
+## How to get output of pod in yaml format
 
-### How to get output of pod in yaml format
 - kubectl get pod nginx-55f494c486-jsqf9 -o yaml > ./app-nginx.yaml
   - This command will send the output of above command in yaml format that we can use later on to create a template.
 
 ### Some commands
+
 - kubectl get nodes
   - To see the running nodes, for example master or worker etc. for example:
     - NAME       STATUS   ROLES           AGE   VERSION
@@ -225,28 +244,28 @@
   - This command will display service information in detail, for example ip, port, node ip, endpoint etc
 - kubectl exec --it <pod_name> -c <container_name> bash
   - If we have multi-container pod running we can use '-c' switch to log into any container we provided in above command.
-
-
 - These commands works for Google Cloud platform to authenticate/authorize with gcp:
 gcloud container clusters get-credentials my-first-cluster-1 --zone asia-south1-a --project ans-dev
 gcloud init
 gcloud config list
-gcloud auth login 
+gcloud auth login
 gcloud config set project PROJECT_ID
 
 ### minikube commands
+
 - minikube node add
   - To add a node
 
 ### Some more notes
+
 - CSPs does not give access on master/control nodes and keeps it with them and highly available. We only have access on worker node and have flexibility to play around worker nodes.
 
-
 ### Where it stores configuration for kubernetes
+
 - ~/.kube/config
 
-
 ### Expose service in Kubernetes
+
 - There are three types of service in kubernetes
 - NodePort
   - minikube service <service_name> --url
@@ -255,10 +274,10 @@ gcloud config set project PROJECT_ID
   - minikube tunnel
   - This will assign an IP to pod and expose the service.
 - ClusterIP
-  - with this service, we can access cluster using it's name for example curl nginx.
-  - 
+  - with this service, we can access cluster using it's name for example curl nginx. 
 
 ### Create deployments in Kubernetes
+
 - kubectl create deployment nginx --image=nginx:alpine
   - kubectl expose deployment nginx --type=LoadBalancer --port=80
 - We can create deployments using yaml (template) file
@@ -267,6 +286,7 @@ gcloud config set project PROJECT_ID
   - kubectl delete -f <template_file.yaml>
 
 ### Important
+
 - kubectl run nginx --image=nginx:alpine --port=80
   - This command will create a pod as well as the deployment in older version but in newer version it only creates a pod and not the deployment. So, to create a deployment along with the pod, we need to execute below command:
 - kubectl create deployment nginx --image=nginx:alpine --port=80
@@ -279,21 +299,23 @@ gcloud config set project PROJECT_ID
   - to check which APIs support current kubernetes object
 
 ### How to verify the access to k8s cluster
+
 - Execute this command and see the output, if no errors then we can interect with cluster whether it is managed or local cluster (minikube, kube-adm etc)
   - kubectl get cs (component status)
 
 ### Troubleshooting service from inside the cluster
+
 - dig apache.default.svc.cluster.local
   - We can execute this command from network-multitool
-
 - matallb -> local loadbalancer 
 
-
 ### Create kubernetes yaml manifests
+
 - Create Service
   - kubectl expose deployment nginx --type=NodePort --dry-run=client -o yaml > support-files/nginx-service.yaml
 
 ### Rolling updates in Kubernetes
+
 - curl -sI <url>:<port>(if any)
   - to include the headers in request, for example, HTTP status, Server, Date, Content-Type, Content-Length, Connection etc
   - add above command in loop to verify the rollout status
@@ -312,9 +334,10 @@ gcloud config set project PROJECT_ID
 - kubectl rollout status deployment nginx
   - We can undo image changes (or image rollout) incase of any error for example, image not found etc
 
-
 ### Configmaps and Secrets
+
 #### Secrets
+
 - kubectl create secret tls nginx-certs --cert=./certs/tls.crt --key=./certs/tls.key
   - tls -> is a type of secret
   - nginx-certs -> name of secret
@@ -328,6 +351,7 @@ gcloud config set project PROJECT_ID
   - shows more information about secret
   
 #### Configmaps
+
 - kubectl create configmap nginx-config --from-file=support-files/nginx-connectors.conf
   - Create configmap
   - nginx-config -> name for the cm
@@ -336,9 +360,9 @@ gcloud config set project PROJECT_ID
 - kubectl describe configmap nginx-config
 - kubectl get secrets,cm
 
-
 #### curl useful commands
+
 - curl -k https://localhost
-  - ignore ssl warning
+  - ignore ssl warnin
 - curl -sI https://127.0.0.1
   - add headers in response
